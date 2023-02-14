@@ -1,0 +1,13 @@
+[package]
+name = "home-dns-refresh"
+version = "0.1.0"
+edition = "2021"
+description = ""
+repository = "https://github.com/haribo256/home-dns-refresh"
+
+[dependencies]
+log = "0.4.17"
+serde = { version = "1.0.147", features = ["derive"] }
+serde_json = { version = "1.0.87" }
+tokio = { version = "1.21.2", features = ["rt", "macros", "time"] }
+

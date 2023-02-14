@@ -1,0 +1,49 @@
+{
+	"name": "Rust",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"VARIANT": "bullseye"
+		}
+	},
+	"runArgs": [
+		"--cap-add=SYS_PTRACE",
+		"--security-opt",
+		"seccomp=unconfined"
+	],
+	"workspaceMount": "source=vol-home-dns-refresh,target=/workspaces/code,type=volume",
+	"workspaceFolder": "/workspaces/code",
+	"customizations": {
+		"vscode": {
+			"settings": { 
+				"lldb.executable": "/usr/bin/lldb",
+				"files.watcherExclude": {
+					"**/target/**": true
+				},
+				"rust-analyzer.checkOnSave.command": "clippy",
+				"[rust]": {
+					"editor.formatOnSave": true
+				}
+			},
+			"extensions": [
+				"vadimcn.vscode-lldb",
+				"mutantdino.resourcemonitor",
+				"rust-lang.rust-analyzer",
+				"tamasfe.even-better-toml",
+				"serayuzgur.crates",
+				"ms-azuretools.vscode-docker",
+				"hbenl.vscode-test-explorer"
+			]
+		}
+	},
+	// "forwardPorts": [],
+	"postCreateCommand": "git clone https://github.com/haribo256/home-dns-refresh.git /workspaces/code",
+	"remoteUser": "vscode",
+	"features": {
+		"docker-in-docker": {
+			"version": "latest",
+			"moby": true,
+			"dockerDashComposeVersion": "v1"
+		}
+	}
+}
