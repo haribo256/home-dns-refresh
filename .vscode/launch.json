@@ -4,6 +4,21 @@
         {
             "type": "lldb",
             "request": "launch",
+            "name": "Debug",
+            "cargo": {
+                "args": [
+                    "run"
+                ]
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "RUST_BACKTRACE": "1"
+            }
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
             "name": "Debug unit tests in library",
             "cargo": {
                 "args": [

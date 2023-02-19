@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    branches: [ release/* ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  Container:
+    runs-on: ubuntu-latest
+    env:
+      image_name: ceq_bus
+      github_owner: ${{ github.repository_owner }}
+      github_repo: ${{ github.repository }}
+      github_user: ${{ github.actor }}
+    steps:
+      - name: Get release version
+        id: version_step
+        run: |
+          NEW_VERSION=`echo "${{ github.ref_name }}" | sed -e 's/release\///g'` 
+          echo "::set-output name=version::$NEW_VERSION"
+          
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Build container image
+        env:
+          version: ${{ steps.version_step.outputs.version }}
+        run: |
+          echo "Building Image [ghcr.io/$github_owner/$image_name:$version]"
+          DOCKER_BUILDKIT=1 docker build . \
+            --file Dockerfile \
+            --tag "ghcr.io/$github_owner/$image_name:$version" \
+            --label "org.opencontainers.image.source=https://github.com/$github_repo"
+
+      - name: Get image details
+        env:
+          version: ${{ steps.version_step.outputs.version }}
+        run: |
+          docker image inspect "ghcr.io/$github_owner/$image_name:$version"
+
+      - name: Push image
+        env:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          version: ${{ steps.version_step.outputs.version }}
+        run: |
+          echo "Pushing Image [ghcr.io/$github_owner/$image_name:$version]"
+          echo -n "$github_token" | docker login ghcr.io -u "$github_user" --password-stdin
+          docker push "ghcr.io/$github_owner/$image_name:$version"
