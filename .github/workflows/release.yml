@@ -11,7 +11,7 @@ jobs:
   Container:
     runs-on: ubuntu-latest
     env:
-      image_name: ceq_bus
+      image_name: ${{ github.repository }}
       github_owner: ${{ github.repository_owner }}
       github_repo: ${{ github.repository }}
       github_user: ${{ github.actor }}
@@ -21,7 +21,7 @@ jobs:
         run: |
           NEW_VERSION=`echo "${{ github.ref_name }}" | sed -e 's/release\///g'` 
           echo "::set-output name=version::$NEW_VERSION"
-          
+
       - name: Checkout source
         uses: actions/checkout@v2
 
