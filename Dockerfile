@@ -17,6 +17,8 @@ RUN cargo build --release
 RUN ls -R
 
 FROM debian:bullseye-slim
+RUN apt-get update -y
+RUN apt-get install ca-certificates -y
 RUN mkdir /app
 ENV PATH="${PATH}:/app"
 WORKDIR /app
