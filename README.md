@@ -8,6 +8,44 @@ Looks up the current external IP, and updates an Azure Zone A Record to that IP 
 
 The A Record must be resolvable, so that it may check if its the same or different.
 
+## Installing locally
+
+```sh
+cargo install home-dns-refresh
+```
+
+## How to run the command
+
+1. Run the command to display the usage
+
+  ```sh
+  home-dns-refresh --help
+  ```
+
+2. Which will show the options to run with.
+
+  ```
+  home-dns-refresh
+  Updates an Azure DNS zone A record to the currently external IP address
+
+  USAGE:
+      home-dns-refresh [OPTIONS] --client-id <client-id> --client-secret <client-secret> --resource-group <resource-group-name> --sub-domain <sub-domain> --subscription-id <subscription-id> --tenant-id <tenant-id> --zone-name <zone-name>
+
+  FLAGS:
+      -h, --help       Prints help information
+      -V, --version    Prints version information
+
+  OPTIONS:
+      -c, --client-id <client-id>                   
+      -p, --client-secret <client-secret>           
+      -r, --resource-group <resource-group-name>    
+      -d, --sub-domain <sub-domain>                 
+      -s, --subscription-id <subscription-id>       
+      -t, --tenant-id <tenant-id>                   
+          --ttl <ttl>                               
+      -z, --zone-name <zone-name>   
+  ```
+
 ## Setup on Nomad as a periodic job
 
 ```hcl
