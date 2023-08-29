@@ -1,15 +1,4 @@
-FROM rust:1-slim-bullseye as toolchain
-RUN mkdir -p /dummy/src
-WORKDIR /dummy
-RUN apt-get update -y
-RUN apt-get install build-essential pkg-config libssl-dev -y
-RUN /bin/bash -c "echo -e '[package]\nname=\"dummy\"\nversion=\"0.1.0\"\nedition=\"2021\"\n[dependencies]\nsmallest-uint=\"0.1\"\n' > Cargo.toml"
-RUN /bin/bash -c "echo -e 'fn main() { println!(\"Dummy\"); }' > src/main.rs"
-RUN cat Cargo.toml
-RUN cat src/main.rs
-RUN cargo fetch
-
-FROM toolchain as builder
+FROM rust:1-slim-bullseye as builder
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
