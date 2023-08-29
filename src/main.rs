@@ -4,7 +4,6 @@ use std::{
     net::{IpAddr, ToSocketAddrs},
     str::FromStr,
 };
-
 use anyhow::anyhow;
 use prelude::StdResult;
 use reqwest::StatusCode;
@@ -104,6 +103,39 @@ struct AuthTokenReply {
     access_token: String,
 }
 
+async fn request_azure_token(
+    tenant_id: impl Into<String>,
+    client_id: impl Into<String>,
+    client_secret: impl Into<String>,
+    scope: impl Into<String>,
+) -> StdResult<String> {
+    let http_client = reqwest::Client::new();
+
+    let token_url = format!(
+        "https://login.microsoftonline.com/{}/oauth2/v2.0/token",
+        tenant_id.into()
+    );
+
+    let token_params = [
+        ("client_id", client_id.into()),
+        ("client_secret", client_secret.into()),
+        ("scope", scope.into()),
+        ("grant_type", "client_credentials".into()),
+    ];
+
+    let token_reply = http_client
+        .post(token_url)
+        .form(&token_params)
+        .send()
+        .await?
+        .json::<AuthTokenReply>()
+        .await?;
+
+    let result = token_reply.access_token;
+
+    Ok(result)
+}
+
 #[allow(clippy::too_many_arguments)]
 async fn update_azure_ip(
     azure_token: impl Into<String>,
@@ -155,39 +187,6 @@ async fn update_azure_ip(
     }
 
     Ok(())
-}
-
-async fn request_azure_token(
-    tenant_id: impl Into<String>,
-    client_id: impl Into<String>,
-    client_secret: impl Into<String>,
-    scope: impl Into<String>,
-) -> StdResult<String> {
-    let http_client = reqwest::Client::new();
-
-    let token_url = format!(
-        "https://login.microsoftonline.com/{}/oauth2/v2.0/token",
-        tenant_id.into()
-    );
-
-    let token_params = [
-        ("client_id", client_id.into()),
-        ("client_secret", client_secret.into()),
-        ("scope", scope.into()),
-        ("grant_type", "client_credentials".into()),
-    ];
-
-    let token_reply = http_client
-        .post(token_url)
-        .form(&token_params)
-        .send()
-        .await?
-        .json::<AuthTokenReply>()
-        .await?;
-
-    let result = token_reply.access_token;
-
-    Ok(result)
 }
 
 fn resolve_hostname_to_ip(hostname: impl Into<String>) -> StdResult<IpAddr> {

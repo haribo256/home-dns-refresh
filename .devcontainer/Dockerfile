@@ -1,6 +1,6 @@
 ARG VARIANT="buster"
 FROM mcr.microsoft.com/vscode/devcontainers/rust:0-${VARIANT}
-ENV RUSTV="1.65"
+ENV RUSTV="1.72"
 
 RUN mkdir -p /etc/apt/keyrings \
   && curl -fsSL https://download.docker.com/linux/debian/gpg \
@@ -22,7 +22,6 @@ RUN rustup default ${RUSTV}
 RUN rustup component add rust-src
 RUN rustup component add clippy
 RUN rustup component add rustfmt
-# RUN cargo install --no-default-features --force cargo-make # Takes ages and costs too much money on github codespaces
 RUN chown vscode:vscode /usr/local/rustup -R
 RUN mkdir -p /workspaces/code
 RUN chown vscode:vscode /workspaces/code

@@ -1,6 +1,0 @@
-[tasks.create-repo]
-script = '''
-git add --all
-git commit -m "Initial"
-gh repo create home-dns-refresh --private --source=. --remote=upstream --push
-'''

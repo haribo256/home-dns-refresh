@@ -1,9 +1,18 @@
 [package]
 name = "home-dns-refresh"
-version = "0.1.0"
+version = "0.1.2"
 edition = "2021"
-description = ""
+description = "Looks up the current external IP, and updates an Azure Zone A Record to that IP"
 repository = "https://github.com/haribo256/home-dns-refresh"
+homepage = "https://github.com/haribo256/home-dns-refresh"
+license = "MIT"
+readme = "README.md"
+keywords = ["home", "homelab", "cli", "azure", "azure-dns", "dns"]
+categories = ["command-line-utilities"]
+include = [
+    "**/*.rs",
+    "Cargo.toml"
+]
 
 [dependencies]
 log = "0.4.17"
