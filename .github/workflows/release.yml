@@ -22,14 +22,14 @@ jobs:
           NEW_VERSION=`echo "${{ github.ref_name }}" | sed -e 's/release\///g'` 
           echo "::set-output name=version::$NEW_VERSION"
 
-      - name: Build
+      - name: Install cargo-edit
         run: |
           cargo install cargo-edit
 
       - name: Checkout source
         uses: actions/checkout@v2
 
-      - name: Build
+      - name: Set crate version
         env:
           version: ${{ steps.version_step.outputs.version }}
         run: |
