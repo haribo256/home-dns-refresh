@@ -49,3 +49,15 @@ jobs:
           echo "Pushing Image [ghcr.io/$github_owner/$image_name:$version]"
           echo -n "$github_token" | docker login ghcr.io -u "$github_user" --password-stdin
           docker push "ghcr.io/$github_owner/$image_name:$version"
+
+      - name: Build
+        run: cargo build --release --verbose
+        
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          name: "$version"
+          tag: "release-$version"
+          artifacts: "target/release/home-dns-refresh"
+          bodyFile: "README.md"
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,8 @@
-FROM rust:1-slim-bullseye as builder
+FROM rust:1-slim-bullseye as toolchain
 RUN apt-get update -y
 RUN apt-get install build-essential pkg-config libssl-dev -y
+
+FROM toolchain as builder
 RUN mkdir /app
 WORKDIR /app
 COPY . /app

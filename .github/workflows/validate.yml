@@ -18,27 +18,9 @@ jobs:
       github_repo: ${{ github.repository }}
       github_user: ${{ github.actor }}
     steps:
-      - name: Get release version
-        id: version_step
-        run: |
-          NEW_VERSION=`echo "${{ github.ref_name }}" | sed -e 's/release\///g'` 
-          echo "::set-output name=version::$NEW_VERSION"
-          
       - name: Checkout source
         uses: actions/checkout@v2
 
-      - name: Build container image
-        env:
-          version: ${{ steps.version_step.outputs.version }}
-        run: |
-          echo "Building Image [ghcr.io/$github_owner/$image_name:$version]"
-          DOCKER_BUILDKIT=1 docker build . \
-            --file Dockerfile \
-            --tag "ghcr.io/$github_owner/$image_name:$version" \
-            --label "org.opencontainers.image.source=https://github.com/$github_repo"
-
-      - name: Get image details
-        env:
-          version: ${{ steps.version_step.outputs.version }}
-        run: |
-          docker image inspect "ghcr.io/$github_owner/$image_name:$version"
+      - name: Build
+        run: cargo build --release --verbose
+       
