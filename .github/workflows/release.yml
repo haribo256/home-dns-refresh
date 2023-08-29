@@ -20,7 +20,7 @@ jobs:
         id: version_step
         run: |
           NEW_VERSION=`echo "${{ github.ref_name }}" | sed -e 's/release\///g'` 
-          echo "{version}={$NEW_VERSION}" >> $GITHUB_OUTPUT
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
       - name: Install cargo-edit
         run: |
