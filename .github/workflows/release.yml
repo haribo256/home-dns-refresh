@@ -27,7 +27,7 @@ jobs:
           cargo install cargo-edit
 
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set crate version
         env:
@@ -61,8 +61,8 @@ jobs:
           name: ${{ steps.version_step.outputs.version }}
           tag: "release-${{ steps.version_step.outputs.version }}"
           artifacts: "target/release/home-dns-refresh"
-          bodyFile: "README.md"
           token: ${{ secrets.GITHUB_TOKEN }}
+          omitBody: true
 
       - name: Publish crate
         env:
