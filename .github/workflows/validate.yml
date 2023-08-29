@@ -10,7 +10,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  Container:
+  Validate:
     runs-on: ubuntu-latest
     env:
       image_name: ${{ github.repository }}

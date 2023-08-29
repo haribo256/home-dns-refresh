@@ -25,6 +25,9 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v2
 
+      - name: Build
+        run: cargo build --release --verbose
+
       - name: Build container image
         env:
           version: ${{ steps.version_step.outputs.version }}
@@ -41,18 +44,6 @@ jobs:
         run: |
           docker image inspect "ghcr.io/$github_owner/$image_name:$version"
 
-      - name: Push image
-        env:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          version: ${{ steps.version_step.outputs.version }}
-        run: |
-          echo "Pushing Image [ghcr.io/$github_owner/$image_name:$version]"
-          echo -n "$github_token" | docker login ghcr.io -u "$github_user" --password-stdin
-          docker push "ghcr.io/$github_owner/$image_name:$version"
-
-      - name: Build
-        run: cargo build --release --verbose
-        
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
@@ -61,3 +52,12 @@ jobs:
           artifacts: "target/release/home-dns-refresh"
           bodyFile: "README.md"
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push image
+        env:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          version: ${{ steps.version_step.outputs.version }}
+        run: |
+          echo "Pushing Image [ghcr.io/$github_owner/$image_name:$version]"
+          echo -n "$github_token" | docker login ghcr.io -u "$github_user" --password-stdin
+          docker push "ghcr.io/$github_owner/$image_name:$version"
