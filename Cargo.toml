@@ -7,7 +7,7 @@ repository = "https://github.com/haribo256/home-dns-refresh"
 homepage = "https://github.com/haribo256/home-dns-refresh"
 license = "MIT"
 readme = "README.md"
-keywords = ["home", "homelab", "cli", "azure", "azure-dns", "dns"]
+keywords = ["cli", "azure", "azure-dns", "dns"]
 categories = ["command-line-utilities"]
 include = [
     "**/*.rs",
