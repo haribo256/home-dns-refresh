@@ -68,7 +68,7 @@ jobs:
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_TOKEN }}
         run: |
-          cargo publish --verbose
+          cargo publish --verbose --allow-dirty
 
       - name: Publish image
         env:
