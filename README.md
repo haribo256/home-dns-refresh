@@ -16,13 +16,13 @@ cargo install home-dns-refresh
 
 ## How to run the command
 
-1. Run the command to display the usage
+Run the command to display the usage:
 
   ```sh
   home-dns-refresh --help
   ```
 
-2. Which will show the options to run with.
+Which will show the options to run with:
 
   ```
   home-dns-refresh
