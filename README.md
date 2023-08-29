@@ -1,10 +1,10 @@
+# Home DNS Refresh
+
 [![Crate](https://img.shields.io/crates/v/home-dns-refresh.svg)](https://crates.io/crates/dioxus)
 [![Validate](https://github.com/haribo256/home-dns-refresh/actions/workflows/validate.yml/badge.svg)](https://github.com/haribo256/home-dns-refresh/actions/workflows/validate.yml)
 [![Release](https://github.com/haribo256/home-dns-refresh/actions/workflows/release.yml/badge.svg)](https://github.com/haribo256/home-dns-refresh/actions/workflows/release.yml)
 
-# Home DNS Refresh
-
-Looks up the current external IP, and updates an Azure Zone A Record to that IP if its different.
+`home-dns-refresh` is a CLI job that looks up the current external IP, and updates an Azure Zone A Record to that IP if its different.
 
 The A Record must be resolvable, so that it may check if its the same or different.
 

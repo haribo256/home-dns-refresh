@@ -47,8 +47,8 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          name: "$version"
-          tag: "release-$version"
+          name: ${{ steps.version_step.outputs.version }}
+          tag: "release-${{ steps.version_step.outputs.version }}"
           artifacts: "target/release/home-dns-refresh"
           bodyFile: "README.md"
           token: ${{ secrets.GITHUB_TOKEN }}
