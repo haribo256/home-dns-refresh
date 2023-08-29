@@ -8,7 +8,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  Container:
+  Build:
     runs-on: ubuntu-latest
     env:
       image_name: ${{ github.repository }}
@@ -39,7 +39,7 @@ jobs:
         run: |
           cargo build --release --verbose
 
-      - name: Build container image
+      - name: Build image
         env:
           version: ${{ steps.version_step.outputs.version }}
         run: |
@@ -55,7 +55,7 @@ jobs:
         run: |
           docker image inspect "ghcr.io/$github_owner/$image_name:$version"
 
-      - name: Create Release
+      - name: Publish release
         uses: ncipollo/release-action@v1
         with:
           name: ${{ steps.version_step.outputs.version }}
@@ -64,7 +64,13 @@ jobs:
           bodyFile: "README.md"
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push image
+      - name: Publish crate
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_TOKEN }}
+        run: |
+          cargo publish --verbose
+
+      - name: Publish image
         env:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           version: ${{ steps.version_step.outputs.version }}

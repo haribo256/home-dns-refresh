@@ -1,6 +1,6 @@
 [package]
 name = "home-dns-refresh"
-version = "0.1.2"
+version = "0.1.4"
 edition = "2021"
 description = "Looks up the current external IP, and updates an Azure Zone A Record to that IP"
 repository = "https://github.com/haribo256/home-dns-refresh"

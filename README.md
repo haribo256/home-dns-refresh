@@ -1,6 +1,6 @@
 # Home DNS Refresh
 
-[![Crate](https://img.shields.io/crates/v/home-dns-refresh.svg)](https://crates.io/crates/dioxus)
+[![Crate](https://img.shields.io/crates/v/home-dns-refresh.svg)](https://crates.io/crates/home-dns-refresh)
 [![Validate](https://github.com/haribo256/home-dns-refresh/actions/workflows/validate.yml/badge.svg)](https://github.com/haribo256/home-dns-refresh/actions/workflows/validate.yml)
 [![Release](https://github.com/haribo256/home-dns-refresh/actions/workflows/release.yml/badge.svg)](https://github.com/haribo256/home-dns-refresh/actions/workflows/release.yml)
 
