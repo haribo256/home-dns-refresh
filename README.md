@@ -1,3 +1,6 @@
+[![Validate](https://github.com/haribo256/home-dns-refresh/actions/workflows/validate.yml/badge.svg)](https://github.com/haribo256/home-dns-refresh/actions/workflows/validate.yml)
+[![Release](https://github.com/haribo256/home-dns-refresh/actions/workflows/release.yml/badge.svg)](https://github.com/haribo256/home-dns-refresh/actions/workflows/release.yml)
+
 # Home DNS Refresh
 
 Looks up the current external IP, and updates an Azure Zone A Record to that IP if its different.
